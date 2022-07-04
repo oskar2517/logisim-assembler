@@ -26,7 +26,7 @@ v3.0 hex words plain
 
 ## Example
 Program that counts in alternation from 0 to 5 and 5 to 0. All instructions have to be present in the specified microcode hex dump.
-```asm
+```
 // Programs start executing at the top
 lda one
 mao
