@@ -76,7 +76,7 @@ v3.0 hex words plain
 ```
 
 ## Download
-The latest release can be downloaded fom the [releases tab](https://github.com/oskar2517/logisim-assembler/releases). Alteratively, binaries compiled from the most reason commit can be downloaded from the [actions tab](https://github.com/oskar2517/logisim-assembler/actions). 
+The latest release can be downloaded fom the [releases tab](https://github.com/oskar2517/logisim-assembler/releases). Alternatively, binaries compiled from the most reason commit can be downloaded from the [actions tab](https://github.com/oskar2517/logisim-assembler/actions). 
 
 ## Usage
 In addition to an input and output path for the program, the path to the microcode hex dump used must be specified. The command used to run this program may look like this `asm -i my_program.txt -o my_program.hex -mc microcode.hex`.
