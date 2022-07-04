@@ -1,0 +1,74 @@
+name: asm
+
+on: [push]
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: krdlab/setup-haxe@v1
+        with:
+          haxe-version: 4.2.5
+      - name: Install dependencies
+        run: |
+          haxelib install hxcpp --quiet
+          haxelib install hxargs --quiet
+      - name: Build
+        run: haxe cpp.hxml
+      - name: Rename artifact
+        run: mv cpp/Main cpp/asm
+      - name: Strip artifact symbols
+        run: strip cpp/asm
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: asm-linux
+          path: cpp/asm
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: krdlab/setup-haxe@v1
+        with:
+          haxe-version: 4.2.5
+      - name: Install dependencies
+        run: |
+          haxelib install hxcpp --quiet
+          haxelib install hxargs --quiet
+      - name: Build
+        run: haxe cpp.hxml
+      - name: Rename artifact
+        run: | 
+          cd cpp
+          ren Main.exe asm.exe
+          cd ..
+      - name: Strip artifact symbols
+        run: strip cpp/asm.exe
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: asm-win
+          path: cpp/asm.exe
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: krdlab/setup-haxe@v1
+        with:
+          haxe-version: 4.2.5
+      - name: Install dependencies
+        run: |
+          haxelib install hxcpp --quiet
+          haxelib install hxargs --quiet
+      - name: Build
+        run: haxe cpp.hxml
+      - name: Rename artifact
+        run: mv cpp/Main cpp/asm
+      - name: Strip artifact symbols
+        run: strip cpp/asm
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: asm-macos
+          path: cpp/asm
