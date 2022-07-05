@@ -106,7 +106,8 @@ class Parser {
             } else {
                 ast.addNode(parseInstruction());
             }
-            default: error('Unexpected token type ${currentToken.type}.');
+            case Illegal: error('Illegal token ${currentToken.literal}.');
+            default: error('Unexpected token type ${currentToken.type} (${currentToken.literal}).');
         }
     }
 }

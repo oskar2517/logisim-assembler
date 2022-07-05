@@ -51,7 +51,7 @@ class CodeGeneratorVisitor implements Visitor {
                 final label = cast(n, LabelNode);
                 labels.set(label.name, byteIndex);
             } else {
-                byteIndex += 1; // TODO: use address width
+                byteIndex += 1;
             }
         }
     }
@@ -68,8 +68,8 @@ class CodeGeneratorVisitor implements Visitor {
             final byteIndex = binaryExtend(config.instructionWidth) - 1 - Std.int(i / 8);
 
             var currentData = out.get(byteIndex);
-            currentData |= ((n >>> i) & 1) << i;
-    
+            currentData |= ((n >>> i) & 1) << (i % 8);
+
             out.set(byteIndex, currentData);
         }
     }
@@ -108,20 +108,18 @@ class CodeGeneratorVisitor implements Visitor {
                 0;
             }
         } else {
-            -1;
+            0;
         }
 
         // Write immediate
-        if (immediate != -1) {
-            writeInteger(immediate, instruction);
-        }
+        writeInteger(immediate, instruction);
 
         // Write opcode
         for (i in 0...config.opCodeWidth) {
             final byteIndex = Std.int(i / 8);
 
             var currentData = instruction.get(byteIndex);
-            currentData |= ((operation >>> (config.opCodeWidth - i - 1)) & 1) << (7 - i);
+            currentData |= ((operation >>> (config.opCodeWidth - i - 1)) & 1) << (7 - (i % 8));
             
             instruction.set(byteIndex, currentData);
         }

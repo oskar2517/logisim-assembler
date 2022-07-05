@@ -43,6 +43,10 @@ class Lexer {
     function readInteger():String {
         final startPosition = position;
 
+        if (currentChar == "-") {
+            readChar();
+        }
+
         while (isNumber(peekChar())) {
             readChar();
         }
@@ -94,6 +98,7 @@ class Lexer {
         return switch (currentChar) {
             case ":": new Token(Colon, currentChar);
             case ";": new Token(Semicolon, currentChar);
+            case "-": new Token(Integer, readInteger());
             case "\u{0}": new Token(Eof, currentChar);
             default:
                 if (isLinebreak(currentChar)) {
