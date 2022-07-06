@@ -106,6 +106,7 @@ class Parser {
             } else {
                 ast.addNode(parseInstruction());
             }
+            case Linebreak: nextToken();
             case Illegal: error('Illegal token ${currentToken.literal}.');
             default: error('Unexpected token type ${currentToken.type} (${currentToken.literal}).');
         }
